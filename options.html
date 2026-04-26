@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lumen Study — Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="page">
+    <div class="container">
+      <header class="page-head">
+        <div class="brand">
+          <div class="logo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffe27a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Lumen Study</h1>
+            <p class="subtitle">Settings</p>
+          </div>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>AI Provider</h2>
+        <p class="helper">Choose which service powers your summaries. Your API key is stored locally and sent only to the provider you choose.</p>
+
+        <div class="provider-picker">
+          <label class="provider-option">
+            <input type="radio" name="provider" value="anthropic" checked />
+            <div class="provider-card">
+              <div class="provider-name">Anthropic Claude</div>
+              <div class="provider-desc">Recommended. Claude Haiku is fast &amp; cheap for summaries.</div>
+              <a class="provider-link" href="https://console.anthropic.com/settings/keys" target="_blank">Get API key →</a>
+            </div>
+          </label>
+
+          <label class="provider-option">
+            <input type="radio" name="provider" value="openai" />
+            <div class="provider-card">
+              <div class="provider-name">OpenAI</div>
+              <div class="provider-desc">GPT-4o-mini also works well and is inexpensive.</div>
+              <a class="provider-link" href="https://platform.openai.com/api-keys" target="_blank">Get API key →</a>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <section class="card" id="anthropic-section">
+        <h2>Anthropic API Key</h2>
+        <div class="field">
+          <label for="anthropicKey">API Key</label>
+          <div class="input-row">
+            <input type="password" id="anthropicKey" placeholder="sk-ant-api03-…" autocomplete="off" spellcheck="false" />
+            <button class="eye-btn" id="toggleAnthropicKey" title="Show/hide">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="anthropicModel">Model</label>
+          <select id="anthropicModel">
+            <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (fast, cheap) — recommended</option>
+            <option value="claude-sonnet-4-6">Claude Sonnet 4.6 (balanced)</option>
+            <option value="claude-opus-4-7">Claude Opus 4.7 (highest quality)</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="card" id="openai-section">
+        <h2>OpenAI API Key</h2>
+        <div class="field">
+          <label for="openaiKey">API Key</label>
+          <div class="input-row">
+            <input type="password" id="openaiKey" placeholder="sk-…" autocomplete="off" spellcheck="false" />
+            <button class="eye-btn" id="toggleOpenaiKey" title="Show/hide">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="openaiModel">Model</label>
+          <select id="openaiModel">
+            <option value="gpt-4o-mini">gpt-4o-mini (fast, cheap) — recommended</option>
+            <option value="gpt-4o">gpt-4o (higher quality)</option>
+            <option value="gpt-4-turbo">gpt-4-turbo</option>
+          </select>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button class="save-btn" id="saveBtn">Save settings</button>
+        <span class="status" id="status"></span>
+      </div>
+
+      <section class="card info">
+        <h2>How to use</h2>
+        <ol>
+          <li>Select text on any webpage.</li>
+          <li>A small <strong>Study</strong> button appears — click it, pick a mode.</li>
+          <li>Or press <kbd>⌘/Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> for a quick summary.</li>
+          <li>Or right-click your selection → <strong>Lumen Study</strong>.</li>
+          <li>Bookmark any result to save it to your library.</li>
+        </ol>
+
+        <h2 style="margin-top:20px">Your privacy</h2>
+        <p class="helper">All saved summaries live in your browser's local storage. API keys are stored in Chrome's synced settings (encrypted by Chrome). Your selected text is sent only to the provider you chose, and only when you click a mode.</p>
+      </section>
+    </div>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

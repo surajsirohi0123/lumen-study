@@ -1,0 +1,419 @@
+/* Lumen Study — in-page UI
+   Same warm editorial aesthetic as Lumen Highlighter, but for AI-powered cards.
+*/
+
+.lumen-study-ui, .lumen-study-ui * {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ===== Floating Study Button (FAB) ===== */
+.lumen-study-fab {
+  position: absolute;
+  z-index: 2147483646; /* one below Lumen highlighter toolbar */
+  animation: lsf-in 160ms ease-out;
+}
+
+@keyframes lsf-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lumen-study-fab-main {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px 6px 8px;
+  background: #c65d2e;
+  color: #fff !important;
+  border: none;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(198, 93, 46, 0.32), 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  line-height: 1;
+}
+
+.lumen-study-fab-main:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(198, 93, 46, 0.42), 0 2px 4px rgba(0, 0, 0, 0.14);
+}
+
+.lumen-study-fab-main svg {
+  flex-shrink: 0;
+}
+
+.lumen-study-fab-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: #1a1a1f;
+  border-radius: 8px;
+  padding: 4px;
+  display: none;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 170px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.lumen-study-fab.open .lumen-study-fab-menu {
+  display: flex;
+  animation: lsf-in 140ms ease-out;
+}
+
+.lumen-study-fab-menu button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  text-align: left;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 120ms ease;
+}
+
+.lumen-study-fab-menu button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ===== Result Card ===== */
+.lumen-study-card {
+  position: absolute;
+  z-index: 2147483645;
+  width: 380px;
+  max-height: 520px;
+  background: #fefbf5;
+  color: #1c1a17;
+  border-radius: 12px;
+  box-shadow:
+    0 24px 48px rgba(28, 26, 23, 0.18),
+    0 4px 12px rgba(28, 26, 23, 0.1),
+    0 0 0 1px rgba(28, 26, 23, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: lsc-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+@keyframes lsc-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.lsc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px 10px 14px;
+  border-bottom: 1px solid #e6dfd2;
+  background: #f7f3ec;
+  cursor: grab;
+  user-select: none;
+}
+
+.lsc-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 12.5px;
+  color: #1c1a17;
+  letter-spacing: -0.01em;
+}
+
+.lsc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c65d2e;
+  flex-shrink: 0;
+}
+
+.lsc-dot-tldr { background: #c65d2e; }
+.lsc-dot-short { background: #e8a857; }
+.lsc-dot-detailed { background: #7a9e7e; }
+.lsc-dot-keypoints { background: #5e8aa8; }
+.lsc-dot-eli12 { background: #d06b8c; }
+.lsc-dot-flashcards { background: #8a6cb0; }
+
+.lsc-head-actions {
+  display: flex;
+  gap: 2px;
+}
+
+.lsc-icon-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #5a554c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.lsc-icon-btn:hover {
+  background: #e6dfd2;
+  color: #1c1a17;
+}
+
+.lsc-icon-btn.lsc-success {
+  color: #7a9e7e;
+  background: rgba(122, 158, 126, 0.12);
+}
+
+.lsc-body {
+  padding: 14px 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.lsc-body::-webkit-scrollbar {
+  width: 6px;
+}
+.lsc-body::-webkit-scrollbar-thumb {
+  background: #d0c5b2;
+  border-radius: 3px;
+}
+.lsc-body::-webkit-scrollbar-thumb:hover {
+  background: #8a847a;
+}
+
+.lsc-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #8a847a;
+  font-size: 12px;
+  font-style: italic;
+  padding: 20px 0;
+  justify-content: center;
+}
+
+.lsc-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #e6dfd2;
+  border-top-color: #c65d2e;
+  border-radius: 50%;
+  animation: lsc-spin 0.7s linear infinite;
+}
+
+@keyframes lsc-spin {
+  to { transform: rotate(360deg); }
+}
+
+.lsc-text {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #1c1a17;
+}
+
+.lsc-text p {
+  margin: 0 0 10px 0;
+}
+
+.lsc-text p:last-child {
+  margin-bottom: 0;
+}
+
+.lsc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lsc-list li {
+  position: relative;
+  padding: 8px 0 8px 22px;
+  font-size: 13px;
+  line-height: 1.6;
+  border-bottom: 1px dashed #e6dfd2;
+}
+
+.lsc-list li:last-child {
+  border-bottom: none;
+}
+
+.lsc-list li::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 16px;
+  width: 6px;
+  height: 6px;
+  background: #c65d2e;
+  border-radius: 50%;
+}
+
+/* ===== Flashcards ===== */
+.lsc-fc-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 0;
+}
+
+.lsc-fc {
+  position: relative;
+  width: 100%;
+  min-height: 160px;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.lsc-fc-face {
+  position: absolute;
+  inset: 0;
+  padding: 18px 16px;
+  background: #fff;
+  border: 1px solid #e6dfd2;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(28, 26, 23, 0.04);
+}
+
+.lsc-fc-back {
+  transform: rotateY(180deg);
+  background: #1c1a17;
+  color: #fefbf5;
+  border-color: #1c1a17;
+}
+
+.lsc-fc.flipped .lsc-fc-front {
+  transform: rotateY(-180deg);
+}
+
+.lsc-fc.flipped .lsc-fc-back {
+  transform: rotateY(0deg);
+}
+
+.lsc-fc-label {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #8a847a;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.lsc-fc-back .lsc-fc-label {
+  color: rgba(254, 251, 245, 0.55);
+}
+
+.lsc-fc-content {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lsc-fc-hint {
+  font-size: 10px;
+  color: #8a847a;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.lsc-fc-back .lsc-fc-hint {
+  color: rgba(254, 251, 245, 0.5);
+}
+
+.lsc-fc-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+}
+
+.lsc-fc-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #e6dfd2;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #1c1a17;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.lsc-fc-btn:hover:not(:disabled) {
+  background: #c65d2e;
+  color: #fff;
+  border-color: #c65d2e;
+}
+
+.lsc-fc-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.lsc-fc-count {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 10.5px;
+  color: #5a554c;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  min-width: 48px;
+  text-align: center;
+}
+
+/* ===== Error state ===== */
+.lsc-error {
+  padding: 8px 0;
+  color: #1c1a17;
+}
+
+.lsc-error-title {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #c65d2e;
+}
+
+.lsc-error p {
+  font-size: 12.5px;
+  color: #5a554c;
+  line-height: 1.55;
+  margin: 0 0 10px 0;
+}
+
+.lsc-primary-btn {
+  background: #1c1a17;
+  color: #fefbf5;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.lsc-primary-btn:hover {
+  background: #c65d2e;
+}
